@@ -1,1 +1,18 @@
+name: Show Article Title
+description: Display the article title in a section.
+type: particle
 
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable the particle.
+      default: true
+      
+    css.class:
+      type: input.text
+      label: CSS Classes
+      description: CSS class name for the particle.
+      default: pageTitle
+    
