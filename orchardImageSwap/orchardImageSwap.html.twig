@@ -1,0 +1,82 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+<div id="headerImages" class="rotateImages {{ particle.css.class }}">
+
+  {% for item in particle.items %}
+  
+      <div class="headerBackgroundImage" style="{{ particle.imagedivcss }} display: none; background-image: url('{{ url(item.backgroundimage)|e }}'); background-repeat: no-repeat; background-size: cover;">
+    
+        <div style="{{ particle.contentdivcss }}">
+        
+            <div style="{{ particle.contenttitlecss }}">
+              {{ item.headline|e }}
+            </div>
+
+            <div  style="{{ particle.contenttextcss }}">
+                {{ item.content|e }}
+            </div>
+            
+        </div>
+        
+    </div>
+    
+  {% endfor %}
+
+</div>
+
+{% endblock %}
+
+{% block javascript_footer %}
+    {% do gantry.load('jquery') %}
+    <script type="text/javascript">
+        /*Rotate Images*/
+
+jQuery(document).ready(function(){                  
+  
+    jQuery(".rotateImages").each(function(index) {
+
+        var RI = jQuery(this);
+     
+        var count = 0;
+
+        jQuery(RI).children().eq(count).fadeToggle("slow", "linear");
+        
+        jQuery(RI).children().eq(count).css("display","flex");
+
+        setInterval(function() {
+            
+              //Fade Out
+              jQuery(RI).children().eq(count).fadeToggle("slow", "linear", function(){
+              
+              jQuery(RI).children().eq(count).css("display","none");
+                
+                //Fade In
+                if (count == (jQuery(RI).children().length - 1)) {
+
+                    count = -1;
+
+                }
+
+                count++;
+              
+              jQuery(RI).children().eq(count).fadeToggle("slow", "linear");
+              
+              jQuery(RI).children().eq(count).css("display","flex");
+              
+            });
+
+        }, {{ particle.speed|default('5000') }});
+
+    });
+
+});
+
+    </script>
+{% endblock %}
+
+
+
+
+
