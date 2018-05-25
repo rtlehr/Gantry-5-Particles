@@ -1,0 +1,17 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+{% set request = gantry.request.request %}
+
+{% set article = joomla.finder('content').id([request['id']]).language().find()|first %}
+
+<div class="g-copyright {{ particle.css.class }}">
+
+  <h1>{{ article.title }}</h1>
+  
+</div>
+
+{% endblock %}
+
+
