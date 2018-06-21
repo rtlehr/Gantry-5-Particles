@@ -1,1 +1,48 @@
+name: Ourchard Preload
+description: Preload content to website
+type: particle
+icon: fa-sliders
 
+configuration:
+  caching:
+    type: static
+
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable Content Tabs particle.
+      default: true
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the particle title text.
+      placeholder: Enter title
+
+    loadingImage:
+      type: input.imagepicker
+      label: Loading Image
+      description: Image to display as the preload items Load.
+      position: relative;
+      
+    items:
+      type: collection.list
+      array: true
+      label: Preload Items
+      description: Items to preload
+      value: title
+      ajax: true
+
+      fields:
+        .preloadItem:
+          type: input.imagepicker
+          label: Background Image
+          description: Select background image.
+          position: relative;
