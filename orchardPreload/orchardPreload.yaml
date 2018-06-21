@@ -38,6 +38,12 @@ form:
       description: Enter the color you would like the cover window to be
       placeholder: Cover Window Color
       default: white
+    
+    coverWindowImage:
+      type: input.imagepicker
+      label: Cover Window Image
+      description: Cover window image
+      position: relative;
       
     loadBarColor:
       type: input.text
