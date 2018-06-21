@@ -1,1 +1,55 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
 
+{% block particle %}
+
+<div id="OrchardPreloadHider" style="position:fixed; top:0px; left:0px; width:100%; height:100%; background-color:white;"
+
+{% endblock %}
+
+{% block javascript_footer %}
+
+<script src="https://code.createjs.com/preloadjs-0.6.2.min.js"></script>
+
+<script>
+   
+  var queue = new createjs.LoadQueue(true);
+  
+  //Set up queue handelers
+  queue.on("fileload", handleFileLoad, this);
+  queue.on("complete", handleComplete, this);
+  
+  {% for item in particle.items %}
+    
+    queue.loadFile("{{ url(item.preloadItem)|e }}");
+    
+  {% endfor %}
+  
+  //Total number of assets, used for the loading bar (need to check if there is a way to get this info from createjs.LoadQueue)
+  var assetsTotal = queue.getItems().length;
+  
+  var assetCount = 0;
+  
+  function handleFileLoad() 
+  {
+  
+    //Add 1 to the assetsCount
+    assetCount++;
+
+    //Gets the precentage of the total assets / number of assets loaded
+    var prec = assetCount / assetsTotal;
+    
+    console.log("precentage loaded: " + prec);
+  
+  }
+  
+  //Called when the total preload queue is finished
+  function handleComplete() 
+  {
+    console.log("finished loading files");
+    
+    jQuery("#OrchardPreloadHider").css("display", "none");
+  }
+        
+</script>
+    
+{% endblock %}
