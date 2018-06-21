@@ -4,7 +4,9 @@
 
 <div id="OrchardPreloadHider" style="position:fixed; top:0px; left:0px; width:100%; height:100%; background-color:{{ particle.coverWindowColor }}; display:flex; justify-content:center; align-items:center;">
 
-  <div style="display:block; width:50%;">
+<div id="orchardPreloaderImage" style="background-image:url('{{ url(particle.coverWindowImage)|e }}'); background-repeat:no-repeat; background-size: cover; opacity:0.5; top:0px; left:0px; width:100%; height:100%; position:absolute;"></div>
+
+  <div style="display:block; width:50%;position:absolute;z-index:100;">
   
     <div id="OrchardImageLoader" style="display:flex; justify-content:center; align-items:center; position:relative;padding:solid 10px yellow; min-width:100px; min-height:100px;">
     
@@ -35,7 +37,6 @@
   //Set up queue handelers
   queue.on("fileload", handleFileLoad, this);
   queue.on("complete", handleComplete, this);
- // queue.on("fileprogress", handleFileProgress, this);
   
   {% for item in particle.items %}
     
@@ -73,13 +74,6 @@
     
     jQuery("#OrchardPreloadHider").css("display", "none");
 
-  }
-  
-  function handleFileProgress(pre) 
-  {
-  
-  console.log("handleFileProgress: " + pre);
-  
   }
         
 </script>
