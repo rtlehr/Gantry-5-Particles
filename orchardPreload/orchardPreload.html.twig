@@ -2,7 +2,25 @@
 
 {% block particle %}
 
-<div id="OrchardPreloadHider" style="position:fixed; top:0px; left:0px; width:100%; height:100%; background-color:white;"
+<div id="OrchardPreloadHider" style="position:fixed; top:0px; left:0px; width:100%; height:100%; background-color:{{ particle.coverWindowColor }}; display:flex; justify-content:center; align-items:center;">
+
+  <div style="display:block; width:50%;">
+  
+    <div id="OrchardImageLoader" style="display:flex; justify-content:center; align-items:center; position:relative;padding:solid 10px yellow; min-width:100px; min-height:100px;">
+    
+      <img src="{{ particle.loadingImage }}" style="">
+      
+    </div>
+
+    <h3 id="loadText">Loading site Assets</h3>
+
+    <div style="position:relative; width:100%; height:50px;">
+      <div id="loadBar" style="display:block; width:0%; height:100%; background-color:{{ particle.loadBarColor }};"></div>
+    </div>
+    
+  </div>
+
+</div>
 
 {% endblock %}
 
@@ -17,6 +35,7 @@
   //Set up queue handelers
   queue.on("fileload", handleFileLoad, this);
   queue.on("complete", handleComplete, this);
+ // queue.on("fileprogress", handleFileProgress, this);
   
   {% for item in particle.items %}
     
@@ -39,15 +58,28 @@
     var prec = assetCount / assetsTotal;
     
     console.log("precentage loaded: " + prec);
+    
+    var fixPrec = Math.round(prec*100) + "%";
+    
+    jQuery("#loadBar").css("width",fixPrec);
+    
+    jQuery("#loadText").text("Loading Site Assets: " + fixPrec + " loaded");
   
   }
   
   //Called when the total preload queue is finished
   function handleComplete() 
   {
-    console.log("finished loading files");
     
     jQuery("#OrchardPreloadHider").css("display", "none");
+
+  }
+  
+  function handleFileProgress(pre) 
+  {
+  
+  console.log("handleFileProgress: " + pre);
+  
   }
         
 </script>
