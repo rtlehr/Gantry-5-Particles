@@ -32,6 +32,20 @@ form:
       description: Image to display as the preload items Load.
       position: relative;
       
+    coverWindowColor:
+      type: input.text
+      label: Cover Window Color
+      description: Enter the color you would like the cover window to be
+      placeholder: Cover Window Color
+      default: white
+      
+    loadBarColor:
+      type: input.text
+      label: Loading Bar Color
+      description: Enter the color you would like the load bar to be
+      placeholder: Loading Bar Color
+      default: black
+      
     items:
       type: collection.list
       array: true
